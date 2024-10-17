@@ -1,10 +1,10 @@
 name: CI/CD Pipeline for Helm
 
-# 파이프라인이 트리거될 조건 설정 (브랜치 push)
 on:
-  push:
-    branches:
-      - gh-pages  # main 브랜치에 푸시될 때 파이프라인 실행
+  workflow_run:
+    workflows: ["pages-build-deployment"]  # GitHub Pages 빌드 완료 후 실행
+    types:
+      - completed
 
 jobs:
   deploy:
