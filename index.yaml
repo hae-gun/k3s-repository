@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  my-temp-chart:
+  - apiVersion: v2
+    appVersion: 1.21.1
+    created: "2024-10-18T00:14:32.040296+09:00"
+    description: A temporary Helm chart for Nginx
+    digest: 83cd8a15a56eba51a8525070d66bc4bcf7624dbe4e15a02cc87e5514b72d8ca1
+    name: my-temp-chart
+    urls:
+    - https://hae-gun.github.io/k3s-repository/my-temp-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-10-18T00:14:32.03888+09:00"
