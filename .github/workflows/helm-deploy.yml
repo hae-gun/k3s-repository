@@ -22,11 +22,10 @@ jobs:
 
     # 3. Kubernetes 컨텍스트 설정 (KUBECONFIG 환경 변수 사용)
     - name: Set up KUBECONFIG
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}  # Kubernetes 설정 파일을 GitHub Secrets로 관리
       run: |
-        echo "$KUBECONFIG" > kubeconfig
-        export KUBECONFIG=$(pwd)/kubeconfig
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+      env:
+        KUBECONFIG: $HOME/.kube/config
 
     # 4. Helm 차트 배포
     - name: Deploy Helm chart
