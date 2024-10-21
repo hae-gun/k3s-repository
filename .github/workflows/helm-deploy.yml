@@ -27,6 +27,7 @@ jobs:
     - name: Set up KUBECONFIG
       run: |
         echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+        chmod 600 ~/.kube/config
       env:
         KUBECONFIG: $HOME/.kube/config
 
