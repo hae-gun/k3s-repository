@@ -37,6 +37,16 @@ jobs:
         echo "${{ secrets.CLIENT_KEY }}" > $HOME/.kube/client.key
         chmod 600 $HOME/.kube/*.crt $HOME/.kube/*.key
 
+    # 3. Kubectl 설치
+    - name: Install kubectl
+      run: |
+        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+        chmod +x ./kubectl
+        sudo mv ./kubectl /usr/local/bin/kubectl
+    - name: Check Kubernetes nodes
+      run: |
+        kubectl get nodes
+        
     # 5. Helm 차트 배포
     - name: Deploy Helm chart
       run: |
