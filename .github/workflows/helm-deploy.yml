@@ -19,19 +19,25 @@ jobs:
     - name: Install Helm
       run: |
         curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-      # .kube 디렉토리 생성
+
+    # 3. .kube 디렉토리 생성 및 KUBECONFIG 설정
     - name: Create .kube directory
       run: |
         mkdir -p $HOME/.kube
-    # 3. Kubernetes 컨텍스트 설정 (KUBECONFIG 환경 변수 사용)
-    - name: Set up KUBECONFIG
-      run: |
         echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-        chmod 600 ~/.kube/config
+        chmod 600 $HOME/.kube/config
       env:
         KUBECONFIG: $HOME/.kube/config
 
-    # 4. Helm 차트 배포
+    # 4. 인증서 설정 (client.crt, client.key, ca.crt)
+    - name: Set up Kubernetes certificates
+      run: |
+        echo "${{ secrets.CA_CRT }}" > $HOME/.kube/ca.crt
+        echo "${{ secrets.CLIENT_CRT }}" > $HOME/.kube/client.crt
+        echo "${{ secrets.CLIENT_KEY }}" > $HOME/.kube/client.key
+        chmod 600 $HOME/.kube/*.crt $HOME/.kube/*.key
+
+    # 5. Helm 차트 배포
     - name: Deploy Helm chart
       run: |
         helm repo add my-repo https://hae-gun.github.io/k3s-repository/
